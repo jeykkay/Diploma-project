@@ -8,4 +8,4 @@ ____
 3. Корзина с товарами
 4. Авторизация/Регистрация пользователя(создание личного кабинета)
 ____
-![logo](https://img.freepik.com/premium-vector/online-shop-logo_18099-275.jpg?w=740)
+![logo](https://logo.com/image-cdn/images/kts928pd/production/6f1c54749cad1db6898eee759e698280b0cc80d3-393x389.png?w=1080&q=72)
