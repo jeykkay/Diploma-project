@@ -8,4 +8,4 @@ ____
 3. Корзина с товарами
 4. Авторизация/Регистрация пользователя(создание личного кабинета)
 ____
-![logo](https://cdn.kibrispdr.org/data/768/logo-untuk-online-shop-0.jpg)
+![logo](https://st2.depositphotos.com/4403291/7418/v/380/depositphotos_74189661-stock-illustration-online-shop-log.jpg)
