@@ -1,11 +1,18 @@
-# **Diplom-project**
+# **Diploma-project**
 ____
-## Store
+## Taxi Booking System
 ____
-### Функционал:
-1. Управление контентом(добавление, редактирование товаров, обновление ассортимента)
-2. Работа фильтров
-3. Корзина с товарами
-4. Авторизация/Регистрация пользователя(создание личного кабинета)
-
-![logo](https://st2.depositphotos.com/4403291/7418/v/380/depositphotos_74189661-stock-illustration-online-shop-log.jpg)
+## Tech stack:
+1. Django, Django-restframework
+2. PostgreSQL
+____
+### Launch of the project:
+''' 
+pip install requirements.txt
+'''
+____
+### Functional:
+1. Регистрация/Авторизация водителя.
+2. Регистрация/Авторизация пассажира.
+3. Возможность отправлять запрос на бронь машины.
+4. Оценка поездки.
