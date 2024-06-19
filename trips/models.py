@@ -7,11 +7,11 @@ class Car(models.Model):
     model = models.CharField(max_length=255, blank=False, null=False, verbose_name='Модель автомобиля')
     year = models.PositiveIntegerField(blank=False, null=False, verbose_name='Год')
     color = models.CharField(max_length=255, blank=False, null=False, verbose_name='Цвет')
-    num_car = models.PositiveIntegerField(unique=True, blank=False, null=False, verbose_name='Гос номер автомобиля')
+    num_car = models.CharField(unique=True, blank=False, null=False, verbose_name='Гос номер автомобиля')
     is_available = models.BooleanField(default=True, verbose_name='Статус')
 
     def __str__(self):
-        return f"{self.brand}-{self.model}: {self.num_car}"
+        return f"{self.brand} {self.model}: {self.num_car}"
 
     class Meta:
         verbose_name = "Машина"
@@ -29,7 +29,7 @@ class Trip(models.Model):
     price = models.FloatField(blank=False, null=False, verbose_name='Цена')
 
     def __str__(self):
-        return f"{self.driver}-{self.car}: started order {self.date} at {self.start_time}\nPrice: {self.price}"
+        return f"{self.driver.first_name}-{self.car};\nPrice: {self.price}"
 
     class Meta:
         verbose_name = "Поездка"
@@ -56,7 +56,7 @@ class Rating(models.Model):
     rating = models.FloatField(blank=False, null=False, verbose_name='Рейтинг')
 
     def __str__(self):
-        return f"{self.driver}'s rating is {self.rating}"
+        return f"{self.driver.first_name} rating is {self.rating}"
 
     class Meta:
         verbose_name = "Рейтинг"
@@ -71,7 +71,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     def __str__(self):
-        return f"{self.passenger.name} commented on {self.trip} at {self.created_at}\n{self.text}"
+        return f"{self.passenger.first_name} commented on {self.trip} at {self.created_at}\n{self.text}"
 
     class Meta:
         verbose_name = "Комментарий"
