@@ -28,7 +28,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, blank=False, null=False)
     phone_number = models.CharField(max_length=15, blank=False, null=False)
     is_active = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
@@ -55,7 +54,6 @@ class Driver(PermissionsMixin, AbstractBaseUser):
     phone_number = models.CharField(max_length=15, blank=False, null=False)
     work_experience = models.IntegerField(default=3)
     license_number = models.CharField(max_length=20)
-    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
