@@ -5,8 +5,8 @@ from users.models import CustomUser, Driver
 class Car(models.Model):
     brand = models.CharField(max_length=255, blank=False, null=False, verbose_name='Марка автомобиля')
     model = models.CharField(max_length=255, blank=False, null=False, verbose_name='Модель автомобиля')
-    year = models.PositiveIntegerField(blank=False, null=False, verbose_name='Год')
-    color = models.CharField(max_length=255, blank=False, null=False, verbose_name='Цвет')
+    year = models.PositiveIntegerField(verbose_name='Год')
+    color = models.CharField(max_length=255, verbose_name='Цвет')
     num_car = models.CharField(unique=True, blank=False, null=False, verbose_name='Гос номер автомобиля')
     is_available = models.BooleanField(default=True, verbose_name='Статус')
 
@@ -19,13 +19,13 @@ class Car(models.Model):
 
 
 class Trip(models.Model):
-    driver = models.OneToOneField(Driver, on_delete=models.CASCADE, related_name="trip_as_driver")
-    passenger = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="trip_as_passenger")
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name="trip_as_driver")
+    passenger = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="trip_as_passenger")
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    date = models.DateField(blank=False, null=False, verbose_name='Дата поездки')
-    start_time = models.TimeField(blank=False, null=False, verbose_name='Дата начала поездки')
-    end_time = models.TimeField(blank=False, null=False, verbose_name='Дата окончания поездки')
-    destination = models.CharField(max_length=255, blank=False, null=False, verbose_name='Место назначения')
+    date = models.DateField(verbose_name='Дата поездки')
+    start_time = models.TimeField(verbose_name='Время начала поездки')
+    end_time = models.TimeField(verbose_name='Время окончания поездки')
+    destination = models.CharField(max_length=255, verbose_name='Место назначения')
     price = models.FloatField(blank=False, null=False, verbose_name='Цена')
 
     def __str__(self):
