@@ -3,12 +3,18 @@ from users.models import CustomUser, Driver
 
 
 class Car(models.Model):
+    CAR_STATUS = (
+        ('Available', 'Available'),
+        ('Not available', 'Not available'),
+
+    )
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, verbose_name='Водитель')
     brand = models.CharField(max_length=255, blank=False, null=False, verbose_name='Марка автомобиля')
     model = models.CharField(max_length=255, blank=False, null=False, verbose_name='Модель автомобиля')
     year = models.PositiveIntegerField(verbose_name='Год')
     color = models.CharField(max_length=255, verbose_name='Цвет')
     num_car = models.CharField(unique=True, blank=False, null=False, verbose_name='Гос номер автомобиля')
-    is_available = models.BooleanField(default=True, verbose_name='Статус')
+    car_status = models.CharField(choices=CAR_STATUS, default='Available', max_length=100, verbose_name='Статус')
 
     def __str__(self):
         return f"{self.brand} {self.model}: {self.num_car}"
@@ -19,6 +25,13 @@ class Car(models.Model):
 
 
 class Trip(models.Model):
+    TRIP_STATUS = (
+        ('Awaiting order', 'Awaiting order'),
+        ('Started', 'Started'),
+        ('In Progress', 'In Progress'),
+        ('Completed', 'Completed'),
+
+    )
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name="trip_as_driver")
     passenger = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="trip_as_passenger")
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
@@ -27,6 +40,7 @@ class Trip(models.Model):
     end_time = models.TimeField(verbose_name='Время окончания поездки')
     destination = models.CharField(max_length=255, verbose_name='Место назначения')
     price = models.FloatField(blank=False, null=False, verbose_name='Цена')
+    driver_status = models.CharField(choices=TRIP_STATUS, default='Awaiting order', max_length=100, verbose_name='Статус')
 
     def __str__(self):
         return f"{self.driver.first_name}-{self.car};\nPrice: {self.price}"
@@ -37,9 +51,9 @@ class Trip(models.Model):
 
 
 class Booking(models.Model):
-    car = models.OneToOneField(Car, on_delete=models.CASCADE, related_name="booking_as_car")
-    driver = models.OneToOneField(Driver, on_delete=models.CASCADE, related_name="booking_as_driver")
-    passenger = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="booking_as_passenger")
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="booking_as_car")
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name="booking_as_driver")
+    passenger = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="booking_as_passenger")
     date = models.DateField(blank=False, null=False, verbose_name='Дата брони')
     time = models.TimeField(blank=False, null=False, verbose_name='Время брони')
 
@@ -53,7 +67,7 @@ class Booking(models.Model):
 
 class Rating(models.Model):
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
-    rating = models.FloatField(blank=False, null=False, verbose_name='Рейтинг')
+    rating = models.DecimalField(verbose_name='Рейтинг', max_digits=2, decimal_places=1)
 
     def __str__(self):
         return f"{self.driver.first_name} rating is {self.rating}"

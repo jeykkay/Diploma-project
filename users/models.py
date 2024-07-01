@@ -47,7 +47,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Driver(PermissionsMixin, AbstractBaseUser):
-    car = models.OneToOneField('trips.Car', on_delete=models.CASCADE, related_name='car')
     email = models.EmailField(unique=True, blank=False, null=False)
     first_name = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False)
